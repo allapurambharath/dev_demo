@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: TRF
+    database: {{target.name}}_DEMO  
+    schema: TRF  
+    tables:
+      - name: ORDER_DETAILS
+      
+
+
+
+
