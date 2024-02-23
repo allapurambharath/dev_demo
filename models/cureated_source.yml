@@ -1,9 +1,0 @@
-version: 2
-
-sources:
-  - name: CUREATED
-    database: {{target.name}}_DEMO  
-    schema: CUREATED  
-    tables:
-      - name: DAILY_SALES_SUMMARY
-      

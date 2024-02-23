@@ -14,6 +14,7 @@ with orders as
 menu_items as 
 (
     select 
+    item_id,
     item_name,
     item_category,
     item_price,
@@ -30,6 +31,6 @@ SELECT
     menu_items.item_description,
     orders.total_amount
 FROM 
-    orders o
+    orders 
 inner JOIN 
-    menu_items oi ON o.order_id = oi.order_id
+    menu_items  ON orders.order_id = menu_items.item_id

@@ -1,13 +1,12 @@
 version: 2
 
 sources:
-  - name: TRF
+  - name: CURATED
     database: "{{target.name}}_DEMO"  
-    schema: TRF  
+    schema: CURATED  
     tables:
-      - name: ORDER_DETAILS
+      - name: DAILY_SALES_SUMMARY
+
+
+
       
-
-
-
-
