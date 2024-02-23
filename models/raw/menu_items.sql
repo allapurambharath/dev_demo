@@ -1,7 +1,8 @@
 {{ config(
-    materialized = 'table'
-) }}
-
+    materialized = 'table',
+    pre_hook= ["truncate table {{ this }};"]
+  )
+}}
 
 select 
     item_id,

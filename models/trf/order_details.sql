@@ -1,5 +1,5 @@
 {{ config(
-    materialized = 'table'
+    materialized = 'incremental'
 ) }}
 
 with orders as 
