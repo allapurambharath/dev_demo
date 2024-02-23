@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: RAW
-    database: "{{target.name}}_DEMO"  
+    database: "{{target.name|upper}}_DEMO"  
     schema: RAW  
     tables:
       - name: STG_ORDERS
