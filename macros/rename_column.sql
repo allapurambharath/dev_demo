@@ -2,6 +2,6 @@
 {%set query%}
     ALTER TABLE {{ ref(table_nm) }}
     RENAME COLUMN {{ old_column }} TO {{ new_column }};
-{%end set%}
-{% do run(query) %}
-{%end macro%}
+{%endset%}
+{% do run_query(query) %}
+{%endmacro%}
