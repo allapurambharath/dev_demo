@@ -3,14 +3,14 @@
     {% for res in results %}
         {% set line %}
             status: {{ res.status }}
-            {% if "SUCCESS" not in res.message %}
-                message: {{ res.message }}
-            {% else %}
-                message: null
-            {% endif %}
             row_affected: {{ res.adapter_response.get('rows_affected', 0) if res.adapter_response is defined else 0 }}
         {% endset %}
         {{ log(line, info=True) }}
+        {% if "SUCCESS" not in res.message %}
+                {% set log_message = res.message %}
+            {% else %}
+                {% set log_message =  'null' %}
+            {% endif %}
         {% set table_nm = res.node.unique_id.split('.') %}
         {% set model_nm = table_nm[-1] %}
         {% set job_info %}
@@ -26,10 +26,9 @@
                 update
                     {{ source('AUDIT', 'ABAC_JOB_RUN') }}
                 set 
-                    job_start_time = CURRENT_TIMESTAMP(),
-                    job_end_time = NULL,
+                    job_end_time = CURRENT_TIMESTAMP(),
                     job_status = '{{ res.status }}',
-                    job_error = '{{ message }}',
+                    job_error = '{{ log_message|replace("'","''") }}',
                     rows_affected = {{ res.adapter_response.get('rows_affected', 0) if res.adapter_response is defined else 0 }},
                     JOB_UID = CURRENT_USER()
                 WHERE

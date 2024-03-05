@@ -20,6 +20,7 @@ INSERT INTO
         job_end_time,
         rows_affected,
         job_status,
+        job_error,
         job_uid
     )
 SELECT
@@ -30,6 +31,7 @@ SELECT
     NULL AS job_end_time,
     0 as rows_affected,
     'STARTED' AS job_status,
+    null as job_error,
     CURRENT_USER() AS JOB_UID
 FROM
     {{ source('AUDIT', 'ABAC_JOB') }} AS abac_job
