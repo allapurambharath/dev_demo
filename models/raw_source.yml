@@ -9,3 +9,10 @@ sources:
       - name: MENU_STG_ITEMS
       - name: ORDERS
       - name: MENU_ITEMS
+  - name: AUDIT
+    database: "{{target.name|upper}}_DEMO"
+    schema: AUDIT
+    tables:
+      - name: ABAC_JOB
+      - name: ABAC_JOB_RUN
+      
