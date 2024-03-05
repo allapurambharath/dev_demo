@@ -1,8 +1,7 @@
-{% macro clean_column(table_nm, column_nm) %}
-{% set clean_column_name = replace_regex(column_name, '[^\x20-\x7E]', '', 'g') %}
-    {% set query %}
-  ALTER TABLE dev_demo.raw.column_clean_tbl
-RENAME COLUMN "{{ column_name }}" TO "{{ clean_column_name }}";
+{% macro clean_column(table_name, column_name) %}
+    {% set clean_query %}
+        UPDATE dev_demo.raw.column_clean_tbl
+        SET {{ column_name }} = REGEXP_REPLACE({{ column_name }}, '[^[:print:]]', '');
     {% endset %}
-    {% do run_query(query) %}
+    {% do run_query(clean_query) %}
 {% endmacro %}
