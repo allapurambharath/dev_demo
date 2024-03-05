@@ -1,15 +1,15 @@
 {% macro abac_job_end(results) %}
 {% if execute %}
     {% for res in results %}
-        {% set line -%}
+        {% set line %}
             status: {{ res.status }}
             {% if "SUCCESS" not in res.message %}
                 message: {{ res.message }}
             {% else %}
                 message: null
             {% endif %}
-            row_affected: {{ res.adapter_response.rows_affected }}
-        {%- endset %}
+            row_affected: {{ res.adapter_response.get('rows_affected', 0) if res.adapter_response is defined else 0 }}
+        {% endset %}
         {{ log(line, info=True) }}
         {% set table_nm = res.node.unique_id.split('.') %}
         {% set model_nm = table_nm[-1] %}
@@ -29,7 +29,8 @@
                     job_start_time = CURRENT_TIMESTAMP(),
                     job_end_time = NULL,
                     job_status = '{{ res.status }}',
-                    rows_affected = {{ res.adapter_response.rows_affected }},
+                    job_error = '{{ message }}',
+                    rows_affected = {{ res.adapter_response.get('rows_affected', 0) if res.adapter_response is defined else 0 }},
                     JOB_UID = CURRENT_USER()
                 WHERE
                     system_run_id = '{{ invocation_id }}'
