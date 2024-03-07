@@ -4,6 +4,9 @@
   )
 }}
 
+{%set source_schema = 'RAW' %}
+{%set source_table = 'MENU_STG_ITEMS'%}
+
 select 
     item_id,
     item_name,
@@ -11,4 +14,4 @@ select
     CAST(item_price AS numeric) AS item_price,
     item_description
 from 
-{{source('RAW','MENU_STG_ITEMS')}}
+{{source(source_schema , source_table)}}
